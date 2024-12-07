@@ -27,23 +27,23 @@ export default function Home() {
       speedY: number
       color: string
 
-      constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+      constructor(canvasWidth: number, canvasHeight: number) {
+        this.x = Math.random() * canvasWidth
+        this.y = Math.random() * canvasHeight
         this.size = Math.random() * 5 + 1
         this.speedX = Math.random() * 3 - 1.5
         this.speedY = Math.random() * 3 - 1.5
         this.color = `hsl(${Math.random() * 60 + 200}, 100%, 50%)`
       }
 
-      update() {
+      update(canvasWidth: number, canvasHeight: number) {
         this.x += this.speedX
         this.y += this.speedY
 
         if (this.size > 0.2) this.size -= 0.1
 
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
+        if (this.x < 0 || this.x > canvasWidth) this.speedX *= -1
+        if (this.y < 0 || this.y > canvasHeight) this.speedY *= -1
       }
 
       draw() {
@@ -58,14 +58,14 @@ export default function Home() {
 
     function createParticles() {
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle())
+        particles.push(new Particle(canvas.width, canvas.height))
       }
     }
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       for (let i = 0; i < particles.length; i++) {
-        particles[i].update()
+        particles[i].update(canvas.width, canvas.height)
         particles[i].draw()
         if (particles[i].size <= 0.2) {
           particles.splice(i, 1)
