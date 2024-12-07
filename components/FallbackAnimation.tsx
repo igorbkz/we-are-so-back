@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import styles from './page.module.css'
+import styles from '../page.module.css'
 
-export default function Home() {
+export default function FallbackAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function Home() {
       size: number
       speedX: number
       speedY: number
-      color: string
 
       constructor() {
         this.x = Math.random() * canvas.width
@@ -33,7 +32,6 @@ export default function Home() {
         this.size = Math.random() * 5 + 1
         this.speedX = Math.random() * 3 - 1.5
         this.speedY = Math.random() * 3 - 1.5
-        this.color = `hsl(${Math.random() * 60 + 200}, 100%, 50%)`
       }
 
       update() {
@@ -48,7 +46,7 @@ export default function Home() {
 
       draw() {
         if (ctx) {
-          ctx.fillStyle = this.color
+          ctx.fillStyle = 'rgba(255, 215, 0, 0.8)'
           ctx.beginPath()
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
           ctx.fill()
@@ -94,13 +92,13 @@ export default function Home() {
   }, [])
 
   return (
-    <main className={styles.main}>
+    <>
       <canvas ref={canvasRef} className={styles.canvas} />
-      <div className={styles.content}>
+      <div className={styles.overlay}>
         <h1 className={styles.title}>We are so back</h1>
-        <p className={styles.subtitle}>look mom i can code</p>
+        <p className={styles.subtitle}>Experience the future</p>
       </div>
-    </main>
+    </>
   )
 }
 
